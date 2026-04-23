@@ -3,6 +3,7 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { fetchApi } from "@/lib/api/client"
 import { createClient } from "@/lib/supabase/client"
 
 import {
@@ -87,12 +88,8 @@ export default function NewOptimizationPage() {
             } = await supabase.auth.getUser()
             if (!user) throw new Error("Not authenticated")
 
-            const response = await fetch("/api/v1/optimize/", {
+            const response = await fetchApi("/api/v1/optimize/", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}`,
-                },
                 body: JSON.stringify({
                     resume_id: selectedResume,
                     job_description_text: jobDescription,
@@ -236,8 +233,8 @@ export default function NewOptimizationPage() {
                                         type="button"
                                         onClick={() => setOptAddProjects(!optAddProjects)}
                                         className={`flex flex-col items-start p-4 rounded-2xl border transition-all text-left ${optAddProjects
-                                                ? "bg-primary/10 border-primary shadow-sm"
-                                                : "bg-background border-border hover:border-primary/50"
+                                            ? "bg-primary/10 border-primary shadow-sm"
+                                            : "bg-background border-border hover:border-primary/50"
                                             }`}
                                     >
                                         <div className={`w-8 h-8 rounded-full flex items-center justify-center mb-3 ${optAddProjects ? "bg-primary text-white" : "bg-muted text-muted-foreground"
@@ -254,8 +251,8 @@ export default function NewOptimizationPage() {
                                         type="button"
                                         onClick={() => setOptAddExperience(!optAddExperience)}
                                         className={`flex flex-col items-start p-4 rounded-2xl border transition-all text-left ${optAddExperience
-                                                ? "bg-primary/10 border-primary shadow-sm"
-                                                : "bg-background border-border hover:border-primary/50"
+                                            ? "bg-primary/10 border-primary shadow-sm"
+                                            : "bg-background border-border hover:border-primary/50"
                                             }`}
                                     >
                                         <div className={`w-8 h-8 rounded-full flex items-center justify-center mb-3 ${optAddExperience ? "bg-primary text-white" : "bg-muted text-muted-foreground"
@@ -272,8 +269,8 @@ export default function NewOptimizationPage() {
                                         type="button"
                                         onClick={() => setOptRecreateSummary(!optRecreateSummary)}
                                         className={`flex flex-col items-start p-4 rounded-2xl border transition-all text-left ${optRecreateSummary
-                                                ? "bg-primary/10 border-primary shadow-sm"
-                                                : "bg-background border-border hover:border-primary/50"
+                                            ? "bg-primary/10 border-primary shadow-sm"
+                                            : "bg-background border-border hover:border-primary/50"
                                             }`}
                                     >
                                         <div className={`w-8 h-8 rounded-full flex items-center justify-center mb-3 ${optRecreateSummary ? "bg-primary text-white" : "bg-muted text-muted-foreground"
