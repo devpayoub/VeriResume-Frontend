@@ -43,6 +43,11 @@ export default function NewOptimizationPage() {
     const [submitting, setSubmitting] = React.useState(false)
     const [error, setError] = React.useState("")
 
+    // Optimization Preferences Toggles
+    const [optAddProjects, setOptAddProjects] = React.useState(true)
+    const [optAddExperience, setOptAddExperience] = React.useState(true)
+    const [optRecreateSummary, setOptRecreateSummary] = React.useState(false)
+
     React.useEffect(() => {
         const fetchResumes = async () => {
             const {
@@ -82,8 +87,6 @@ export default function NewOptimizationPage() {
             } = await supabase.auth.getUser()
             if (!user) throw new Error("Not authenticated")
 
-            // The backend endpoint handles all credit checking, session creation, 
-            // credit deduction, and triggering the synchronous AI generation.
             const response = await fetch("/api/v1/optimize/", {
                 method: "POST",
                 headers: {
@@ -94,6 +97,9 @@ export default function NewOptimizationPage() {
                     resume_id: selectedResume,
                     job_description_text: jobDescription,
                     target_job_title: targetJobTitle,
+                    opt_add_projects: optAddProjects,
+                    opt_add_experience: optAddExperience,
+                    opt_recreate_summary: optRecreateSummary,
                 }),
             })
 
@@ -103,7 +109,6 @@ export default function NewOptimizationPage() {
             }
 
             const session = await response.json()
-            // Redirect directly to the audit page of the newly completed session
             router.push(`/dashboard/audit/${session.id}`)
         } catch (err: any) {
             setError(err.message || "Failed to start optimization")
@@ -202,7 +207,7 @@ export default function NewOptimizationPage() {
                         </div>
 
                         {/* Right Column: Job Description Area */}
-                        <div className="lg:w-7/12 flex flex-col space-y-4 p-6 md:p-8 bg-muted/5">
+                        <div className="lg:w-7/12 flex flex-col space-y-6 p-6 md:p-8 bg-muted/5">
                             <div>
                                 <h2 className="text-xl font-bold flex items-center gap-2">
                                     <Target className="w-5 h-5 text-primary" /> Step 2: Target Description
@@ -214,11 +219,73 @@ export default function NewOptimizationPage() {
                                 <Textarea
                                     id="description"
                                     placeholder="Paste the full job description here... (Responsibilities, Requirements, Tech Stack)"
-                                    className="flex-1 min-h-[350px] resize-none rounded-xl bg-background/50 border-border/50 p-6 leading-relaxed shadow-inner"
+                                    className="flex-1 min-h-[250px] lg:min-h-0 resize-none rounded-xl bg-background/50 border-border/50 p-6 leading-relaxed shadow-inner"
                                     value={jobDescription}
                                     onChange={(e) => setJobDescription(e.target.value)}
                                     required
                                 />
+                            </div>
+
+                            <div className="pt-4 border-t border-border/50">
+                                <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                                    <Wand2 className="w-5 h-5 text-primary" /> Step 3: Preferences
+                                </h2>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                    <button
+                                        type="button"
+                                        onClick={() => setOptAddProjects(!optAddProjects)}
+                                        className={`flex flex-col items-start p-4 rounded-2xl border transition-all text-left ${optAddProjects
+                                                ? "bg-primary/10 border-primary shadow-sm"
+                                                : "bg-background border-border hover:border-primary/50"
+                                            }`}
+                                    >
+                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center mb-3 ${optAddProjects ? "bg-primary text-white" : "bg-muted text-muted-foreground"
+                                            }`}>
+                                            <Wand2 className="w-4 h-4" />
+                                        </div>
+                                        <span className="font-bold text-sm">Add Projects</span>
+                                        <span className="text-[0.7rem] text-muted-foreground mt-1 line-clamp-2 leading-tight">
+                                            Fabricate matching technical projects.
+                                        </span>
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => setOptAddExperience(!optAddExperience)}
+                                        className={`flex flex-col items-start p-4 rounded-2xl border transition-all text-left ${optAddExperience
+                                                ? "bg-primary/10 border-primary shadow-sm"
+                                                : "bg-background border-border hover:border-primary/50"
+                                            }`}
+                                    >
+                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center mb-3 ${optAddExperience ? "bg-primary text-white" : "bg-muted text-muted-foreground"
+                                            }`}>
+                                            <Target className="w-4 h-4" />
+                                        </div>
+                                        <span className="font-bold text-sm">Add Experience</span>
+                                        <span className="text-[0.7rem] text-muted-foreground mt-1 line-clamp-2 leading-tight">
+                                            Invent roles to fill experience gaps.
+                                        </span>
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => setOptRecreateSummary(!optRecreateSummary)}
+                                        className={`flex flex-col items-start p-4 rounded-2xl border transition-all text-left ${optRecreateSummary
+                                                ? "bg-primary/10 border-primary shadow-sm"
+                                                : "bg-background border-border hover:border-primary/50"
+                                            }`}
+                                    >
+                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center mb-3 ${optRecreateSummary ? "bg-primary text-white" : "bg-muted text-muted-foreground"
+                                            }`}>
+                                            <FileText className="w-4 h-4" />
+                                        </div>
+                                        <span className="font-bold text-sm">Add Summary</span>
+                                        <span className="text-[0.7rem] text-muted-foreground mt-1 line-clamp-2 leading-tight">
+                                            Generate an ATS-ready profile summary.
+                                        </span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
