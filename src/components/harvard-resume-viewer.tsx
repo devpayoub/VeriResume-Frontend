@@ -4,6 +4,7 @@ import React, { useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Download, Loader2, Lightbulb } from "lucide-react"
+import { toast } from "sonner"
 
 /**
  * Harvard OCS Resume Viewer + PDF Export
@@ -274,7 +275,7 @@ export function HarvardResumeViewer({ content }: HarvardResumeViewerProps) {
             pdf.save("Harvard_Resume.pdf")
         } catch (err) {
             console.error("PDF export failed", err)
-            alert("Export failed. Please try again.")
+            toast.error("Export failed. Please try again.")
         } finally {
             setDownloading(false)
         }

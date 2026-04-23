@@ -3,6 +3,7 @@
 import * as React from "react"
 import { createClient } from "@/lib/supabase/client"
 import { uploadResume } from "@/lib/api/resumes"
+import { toast } from "sonner"
 
 import {
     Card,
@@ -77,14 +78,14 @@ export default function ResumesPage() {
                 .single()
 
             if (!profileData || profileData.credits_remaining < 1) {
-                alert("Insufficient credits to upload a new resume.")
+                toast.error("Insufficient credits to upload a new resume.")
                 return
             }
 
             await uploadResume(file)
             await fetchResumes()
         } catch (error: any) {
-            alert(error.message || "Upload failed")
+            toast.error(error.message || "Upload failed")
         } finally {
             setUploading(false)
             if (fileInputRef.current) fileInputRef.current.value = ""
@@ -96,7 +97,7 @@ export default function ResumesPage() {
 
         const { error } = await supabase.from("resumes").delete().eq("id", id)
         if (error) {
-            alert("Failed to delete resume")
+            toast.error("Failed to delete resume")
             return
         }
 

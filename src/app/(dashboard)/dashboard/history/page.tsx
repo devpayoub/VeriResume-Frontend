@@ -4,6 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 import { retryOptimization } from "@/lib/api/optimization"
+import { toast } from "sonner"
 
 import {
   Card,
@@ -115,9 +116,9 @@ export default function HistoryPage() {
           s.id === sessionId ? { ...s, status: data.status || "completed" } : s
         )
       )
-      alert("Optimization request sent/finished! Check the status.")
+      toast.success("Optimization request sent! Check the status for updates.")
     } catch (err: any) {
-      alert(`Error: ${err.message}`)
+      toast.error(`Error: ${err.message}`)
     } finally {
       setReloadingIds((prev) => ({ ...prev, [sessionId]: false }))
     }
