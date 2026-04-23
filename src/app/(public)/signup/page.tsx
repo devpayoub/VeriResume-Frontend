@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import { Loader2, Sparkles } from "lucide-react"
+import { Loader2, Sparkles, MailCheck } from "lucide-react"
 
 export default function SignupPage() {
     const router = useRouter()
@@ -26,19 +26,21 @@ export default function SignupPage() {
     const [fullName, setFullName] = useState("")
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
+    const [success, setSuccess] = useState(false)
 
     const handleSignup = async (e: React.FormEvent) => {
         e.preventDefault()
         setLoading(true)
         setError("")
 
-        const { error: authError } = await supabase.auth.signUp({
+        const { data, error: authError } = await supabase.auth.signUp({
             email,
             password,
             options: {
                 data: {
                     full_name: fullName,
                 },
+                emailRedirectTo: `${window.location.origin}/auth/callback`,
             },
         })
 
@@ -48,8 +50,14 @@ export default function SignupPage() {
             return
         }
 
-        router.push("/dashboard")
-        router.refresh()
+        // Check if confirmation is required (Supabase returns a session if auto-confirm is on)
+        if (data?.session) {
+            router.push("/dashboard")
+            router.refresh()
+        } else {
+            setSuccess(true)
+            setLoading(false)
+        }
     }
 
     const handleGoogleSignup = async () => {
@@ -59,6 +67,31 @@ export default function SignupPage() {
                 redirectTo: `${location.origin}/dashboard`,
             },
         })
+    }
+
+    if (success) {
+        return (
+            <div className="min-h-screen flex items-center justify-center p-4 bg-muted/40">
+                <Card className="w-full max-w-md text-center p-6 bg-background/60 backdrop-blur-xl border-primary/20 shadow-2xl">
+                    <CardHeader>
+                        <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <MailCheck className="w-8 h-8 text-primary animate-pulse" />
+                        </div>
+                        <CardTitle className="text-2xl font-bold">Please Verify Your Email</CardTitle>
+                        <CardDescription className="text-base text-balance mt-2">
+                            A confirmation link has been sent to <span className="font-semibold text-foreground">{email}</span>. Please click the link to activate your account.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardFooter className="flex flex-col gap-4">
+                        <Link href="/login" className="w-full">
+                            <Button variant="outline" className="w-full border-primary/20 hover:bg-primary/5 transition-colors">
+                                Back to login
+                            </Button>
+                        </Link>
+                    </CardFooter>
+                </Card>
+            </div>
+        )
     }
 
     return (

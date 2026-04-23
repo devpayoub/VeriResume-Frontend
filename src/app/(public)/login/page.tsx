@@ -97,10 +97,9 @@ export default function LoginPage() {
                             <div className="space-y-2">
                                 <div className="flex items-center justify-between">
                                     <Label htmlFor="password">Password</Label>
-                                    {/* Forgot password logic can be added later */}
                                     <Link
-                                        href="#"
-                                        className="text-sm font-medium text-primary hover:underline hidden"
+                                        href="/forgot-password"
+                                        className="text-sm font-medium text-primary hover:underline"
                                     >
                                         Forgot password?
                                     </Link>
