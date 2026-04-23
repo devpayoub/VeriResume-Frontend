@@ -105,8 +105,8 @@ export default function NewOptimizationPage() {
                 throw new Error(errorData?.error || "Failed to start optimization")
             }
 
-            const session = await response.json()
-            router.push(`/dashboard/audit/${session.id}`)
+            await response.json()
+            router.push("/dashboard/history")
         } catch (err: any) {
             setError(err.message || "Failed to start optimization")
             setSubmitting(false)
