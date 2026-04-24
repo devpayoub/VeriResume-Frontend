@@ -11,8 +11,8 @@ import {
     CreditCard,
     Settings,
     LogOut,
-    Sparkles,
 } from "lucide-react"
+import { Logo } from "@/components/logo"
 
 import {
     Sidebar,
@@ -43,7 +43,7 @@ export function AppSidebar() {
     const [email, setEmail] = React.useState<string | null>(null)
 
     React.useEffect(() => {
-        supabase.auth.getUser().then(({ data }) => {
+        supabase.auth.getUser().then(({ data }: { data: { user: { email?: string } | null } }) => {
             if (data?.user?.email) setEmail(data.user.email)
         })
     }, [supabase])
@@ -56,14 +56,9 @@ export function AppSidebar() {
     return (
         <Sidebar collapsible="icon">
             <SidebarHeader className="border-b border-sidebar-border h-16 flex items-center px-4">
-                <Link href="/" className="flex items-center gap-2 mt-2">
-                    <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center text-primary-foreground">
-                        <Sparkles className="w-4 h-4" />
-                    </div>
-                    <span className="text-base font-extrabold tracking-tight text-foreground">
-                        Veri<span className="text-primary">Resume</span>
-                    </span>
-                </Link>
+                <div className="mt-2">
+                    <Logo size="sm" />
+                </div>
             </SidebarHeader>
             <SidebarContent>
                 <SidebarMenu className="mt-4 px-2 space-y-1">

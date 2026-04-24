@@ -1,9 +1,7 @@
 import { type NextRequest } from "next/server"
 import { updateSession } from "@/lib/supabase/middleware"
 
-// Next.js Proxy that runs on edge runtime (replaces middleware)
-export async function proxy(request: NextRequest) {
-    // Update Supabase session to keep user active and handle auth refresh
+export async function middleware(request: NextRequest) {
     return await updateSession(request)
 }
 

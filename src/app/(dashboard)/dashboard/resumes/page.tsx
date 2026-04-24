@@ -5,26 +5,12 @@ import { createClient } from "@/lib/supabase/client"
 import { uploadResume } from "@/lib/api/resumes"
 import { toast } from "sonner"
 
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Loader2, Trash2, FileText, Upload, Clock, Search, MoreVertical, Activity } from "lucide-react"
+import { Loader2, Trash2, FileText, Upload, Clock, Search, Activity } from "lucide-react"
 import { HarvardResumeViewer } from "@/components/harvard-resume-viewer"
-
-interface Resume {
-    id: string
-    filename: string
-    word_count: number
-    created_at: string
-    parsed_text: string
-}
+import { ConfirmDialog } from "@/components/confirm-dialog"
+import type { Resume } from "@/types"
 
 export default function ResumesPage() {
     const supabase = createClient()
@@ -84,8 +70,9 @@ export default function ResumesPage() {
 
             await uploadResume(file)
             await fetchResumes()
-        } catch (error: any) {
-            toast.error(error.message || "Upload failed")
+        } catch (error: unknown) {
+            const message = error instanceof Error ? error.message : "Upload failed"
+            toast.error(message)
         } finally {
             setUploading(false)
             if (fileInputRef.current) fileInputRef.current.value = ""
@@ -93,8 +80,6 @@ export default function ResumesPage() {
     }
 
     const handleDelete = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this resume?")) return
-
         const { error } = await supabase.from("resumes").delete().eq("id", id)
         if (error) {
             toast.error("Failed to delete resume")
@@ -219,15 +204,23 @@ export default function ResumesPage() {
                                         {selectedResume.filename}
                                     </h3>
                                 </div>
-                                <Button
+                                <ConfirmDialog
+                                    trigger={
+                                        <Button
+                                            variant="destructive"
+                                            size="sm"
+                                            className="rounded-lg shadow-none"
+                                        >
+                                            <Trash2 className="w-4 h-4 mr-2" />
+                                            Delete Resume
+                                        </Button>
+                                    }
+                                    title="Delete Resume"
+                                    description="Are you sure you want to delete this resume? This action cannot be undone."
+                                    confirmLabel="Delete"
                                     variant="destructive"
-                                    size="sm"
-                                    onClick={() => handleDelete(selectedResume.id)}
-                                    className="rounded-lg shadow-none"
-                                >
-                                    <Trash2 className="w-4 h-4 mr-2" />
-                                    Delete Resume
-                                </Button>
+                                    onConfirm={() => handleDelete(selectedResume.id)}
+                                />
                             </div>
                             <div className="flex-1 overflow-hidden min-h-0 [&>div]:h-full border border-border/50 rounded-3xl">
                                 <HarvardResumeViewer content={selectedResume.parsed_text} />

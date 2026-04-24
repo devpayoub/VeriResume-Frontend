@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { Loader2, Save, LogOut, UserMinus, ShieldAlert, User } from "lucide-react"
+import { ConfirmDialog } from "@/components/confirm-dialog"
 
 export default function SettingsPage() {
     const router = useRouter()
@@ -77,14 +78,6 @@ export default function SettingsPage() {
     }
 
     const handleDeleteAccount = async () => {
-        if (
-            !confirm(
-                "Are you sure you want to delete your account? This action cannot be undone."
-            )
-        ) {
-            return
-        }
-
         const {
             data: { user },
         } = await supabase.auth.getUser()
@@ -198,10 +191,19 @@ export default function SettingsPage() {
                                 Permanently delete all personal data, resumes, optimizations, and transaction history. This action cannot be reversed.
                             </p>
                         </div>
-                        <Button variant="destructive" onClick={handleDeleteAccount} className="rounded-xl font-medium min-w-36 shadow-sm shadow-destructive/20">
-                            <UserMinus className="mr-2 h-4 w-4" />
-                            Delete Account
-                        </Button>
+                        <ConfirmDialog
+                            trigger={
+                                <Button variant="destructive" className="rounded-xl font-medium min-w-36 shadow-sm shadow-destructive/20">
+                                    <UserMinus className="mr-2 h-4 w-4" />
+                                    Delete Account
+                                </Button>
+                            }
+                            title="Delete Account"
+                            description="Are you sure you want to delete your account? This will permanently delete all personal data, resumes, optimizations, and transaction history. This action cannot be undone."
+                            confirmLabel="Delete My Account"
+                            variant="destructive"
+                            onConfirm={handleDeleteAccount}
+                        />
                     </div>
                 </CardContent>
             </Card>
