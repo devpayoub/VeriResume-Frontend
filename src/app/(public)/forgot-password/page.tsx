@@ -14,7 +14,8 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import { Loader2, Sparkles, ArrowLeft, MailCheck } from "lucide-react"
+import { Loader2, ArrowLeft, MailCheck } from "lucide-react"
+import { Logo } from "@/components/logo"
 
 export default function ForgotPasswordPage() {
     const supabase = createClient()
@@ -70,14 +71,9 @@ export default function ForgotPasswordPage() {
     return (
         <div className="min-h-screen flex items-center justify-center p-4 bg-muted/40">
             <div className="w-full max-w-md flex flex-col items-center">
-                <Link href="/" className="flex items-center gap-2 mb-8">
-                    <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-primary text-primary-foreground">
-                        <Sparkles className="w-4 h-4" />
-                    </div>
-                    <span className="text-2xl font-extrabold tracking-tight">
-                        Veri<span className="text-primary">Resume</span>
-                    </span>
-                </Link>
+                <div className="mb-8">
+                    <Logo />
+                </div>
 
                 <Card className="w-full bg-background/60 backdrop-blur-xl border-primary/10 shadow-xl">
                     <CardHeader className="text-center">

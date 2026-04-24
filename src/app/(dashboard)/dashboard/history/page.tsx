@@ -17,15 +17,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Loader2, RefreshCw, Clock, CheckCircle2, XCircle, ArrowRight, FileText, Calendar } from "lucide-react"
 import { formatDistanceToNow } from "date-fns"
-
-interface Session {
-  id: string
-  target_job_title: string
-  status: string
-  credits_deducted: boolean
-  created_at: string
-  completed_at: string | null
-}
+import type { Session } from "@/types"
 
 const getStatusConfig = (status: string) => {
   switch (status) {
@@ -92,7 +84,7 @@ export default function HistoryPage() {
           schema: 'public',
           table: 'sessions',
         },
-        (payload) => {
+        (payload: { new: { id: string; status: string; completed_at: string | null } }) => {
           setSessions((prev) =>
             prev.map((s) => (s.id === payload.new.id ? { ...s, status: payload.new.status, completed_at: payload.new.completed_at } : s))
           )
@@ -117,8 +109,9 @@ export default function HistoryPage() {
         )
       )
       toast.success("Optimization request sent! Check the status for updates.")
-    } catch (err: any) {
-      toast.error(`Error: ${err.message}`)
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Unknown error"
+      toast.error(`Error: ${message}`)
     } finally {
       setReloadingIds((prev) => ({ ...prev, [sessionId]: false }))
     }

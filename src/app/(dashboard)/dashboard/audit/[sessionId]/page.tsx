@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { HarvardResumeViewer } from "@/components/harvard-resume-viewer"
 import { ArrowLeft, CheckCircle2, AlertTriangle, ShieldCheck, FileDiff, FileCheck } from "lucide-react"
+import type { AuditTrailEntry, OptimizedResult } from "@/types"
 
 export default async function AuditPage(props: {
     params: Promise<{ sessionId: string }>
@@ -64,8 +65,8 @@ export default async function AuditPage(props: {
     }
 
     // Fetch result and audit trails if completed
-    let result = null
-    let auditTrails: any[] = []
+    let result: OptimizedResult | null = null
+    let auditTrails: AuditTrailEntry[] = []
 
     if (session.status === "completed") {
         const { data: resultData } = await supabase
@@ -75,14 +76,14 @@ export default async function AuditPage(props: {
             .single()
 
         if (resultData) {
-            result = resultData
+            result = resultData as OptimizedResult
 
             const { data: auditData } = await supabase
                 .from("audit_trails")
                 .select("*")
-                .eq("optimized_result_id", result.id)
+                .eq("optimized_result_id", resultData.id)
 
-            auditTrails = auditData || []
+            auditTrails = (auditData || []) as AuditTrailEntry[]
         }
     }
 

@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { CheckCircle, Sparkles } from "lucide-react"
+import { CheckCircle } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -11,31 +11,13 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { PublicNavbar } from "@/components/public-navbar"
+import { Footer } from "@/components/landing/footer"
 
 export default function PricingPage() {
     return (
         <div className="min-h-screen bg-muted/20 flex flex-col">
-            <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b">
-                <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-primary text-primary-foreground">
-                            <Sparkles className="w-4 h-4" />
-                        </div>
-                        <span className="text-xl font-extrabold tracking-tight">
-                            Veri<span className="text-primary">Resume</span>
-                        </span>
-                    </Link>
-
-                    <nav className="flex items-center gap-4">
-                        <Button variant="ghost" asChild>
-                            <Link href="/login">Sign In</Link>
-                        </Button>
-                        <Button asChild className="rounded-xl">
-                            <Link href="/signup">Get Started Free</Link>
-                        </Button>
-                    </nav>
-                </div>
-            </header>
+            <PublicNavbar />
 
             <main className="flex-1 py-16 px-6">
                 <div className="max-w-3xl mx-auto">
@@ -129,23 +111,7 @@ export default function PricingPage() {
                 </div>
             </main>
 
-            {/* ── Footer ── */}
-            <footer className="border-t bg-muted/30 py-8">
-                <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 rounded-lg bg-primary flex items-center justify-center">
-                            <Sparkles className="w-3 h-3 text-primary-foreground" />
-                        </div>
-                        <p className="text-sm text-muted-foreground">
-                            © 2026 <strong className="text-foreground">VeriResume</strong>
-                        </p>
-                    </div>
-                    <div className="flex gap-6 text-sm font-semibold text-muted-foreground">
-                        <Link href="/" className="hover:text-primary transition-colors">Privacy</Link>
-                        <Link href="/" className="hover:text-primary transition-colors">Terms</Link>
-                    </div>
-                </div>
-            </footer>
+            <Footer />
         </div>
     )
 }

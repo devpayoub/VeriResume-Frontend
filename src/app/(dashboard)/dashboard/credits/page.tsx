@@ -22,14 +22,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { Loader2, Coins, Receipt, Send, Zap } from "lucide-react"
-
-interface Transaction {
-    id: string
-    amount: number
-    reason: string
-    admin_note: string
-    created_at: string
-}
+import type { Transaction } from "@/types"
 
 export default function CreditsPage() {
     const supabase = createClient()
