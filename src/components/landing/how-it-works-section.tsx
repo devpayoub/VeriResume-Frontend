@@ -1,54 +1,86 @@
-import { FileText, Target, TrendingUp } from "lucide-react"
+import { Package, Inbox, BarChart2 } from "lucide-react"
+
+const steps = [
+  {
+    number: "01",
+    numberColor: "#c97b4b",
+    borderColor: "#c97b4b",
+    icon: <Package className="w-5 h-5" style={{ color: "#c97b4b" }} />,
+    title: "Upload Resume",
+    description:
+      "Upload your current resume in PDF or Word format. Our parser extracts your full work history with precision.",
+    tag: "PDF & DOCX SUPPORTED",
+  },
+  {
+    number: "02",
+    numberColor: "#3a6b60",
+    borderColor: "#3a6b60",
+    icon: <Inbox className="w-5 h-5" style={{ color: "#3a6b60" }} />,
+    title: "Paste Job Description",
+    description:
+      "Drop in the job posting you're targeting. Our AI dissects the requirements and extracts key technical signals.",
+    tag: "ANY JOB BOARD SUPPORTED",
+  },
+  {
+    number: "03",
+    numberColor: "#5c6b4a",
+    borderColor: "#5c6b4a",
+    icon: <BarChart2 className="w-5 h-5" style={{ color: "#5c6b4a" }} />,
+    title: "Download Optimized PDF",
+    description:
+      "Receive a Harvard OCS formatted resume rewritten to match the job — ready for submission.",
+    tag: "WITHIN 2 MINUTES",
+  },
+]
 
 export function HowItWorksSection() {
   return (
-    <section className="py-24">
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <p className="text-sm font-bold text-primary uppercase tracking-widest mb-3">
-            How it works
-          </p>
-          <h2 className="text-4xl md:text-5xl font-black">
-            Three steps to your{" "}
-            <span className="text-primary">best resume</span>
-          </h2>
+    <section id="how-it-works" className="py-32">
+      <div className="max-w-6xl mx-auto px-6">
+        {/* Eyebrow */}
+        <div className="flex items-center justify-center gap-4 mb-6">
+          <div className="h-px w-10 bg-[#c97b4b]" />
+          <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-[#c97b4b]">
+            How It Works
+          </span>
+          <div className="h-px w-10 bg-[#c97b4b]" />
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 relative">
-          <div className="hidden md:block absolute top-10 left-[16%] right-[16%] h-0.5 bg-gradient-to-r from-primary/20 via-primary to-primary/20" />
-          {[
-            {
-              step: "01",
-              icon: FileText,
-              title: "Upload Your Resume",
-              body: "Paste your existing resume or upload a PDF. We parse every skill and bullet point.",
-            },
-            {
-              step: "02",
-              icon: Target,
-              title: "Paste the Job Description",
-              body: "Drop in the job posting. Our AI maps your real experience to what the employer needs.",
-            },
-            {
-              step: "03",
-              icon: TrendingUp,
-              title: "Get an Optimized Resume",
-              body: "Download your rewritten resume with a full audit trail — ready to apply in seconds.",
-            },
-          ].map(({ step, icon: Icon, title, body }) => (
-            <div key={step} className="text-center z-10">
-              <div className="relative inline-flex">
-                <div className="w-20 h-20 rounded-2xl bg-primary flex items-center justify-center mb-6 mx-auto shadow-xl shadow-primary/20">
-                  <Icon className="w-8 h-8 text-primary-foreground" />
-                </div>
-                <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-background border-2 border-primary text-primary text-[10px] font-black flex items-center justify-center">
-                  {step}
+        <h2 className="text-center text-[44px] md:text-[52px] font-bold tracking-tight text-[#1a1916] mb-4">
+          Three steps from draft to dream job.
+        </h2>
+        <p className="text-center text-[17px] text-[#6b6560] mb-16 max-w-xl mx-auto leading-relaxed">
+          No recruiters, no guesswork, no waiting.{" "}
+          <span className="text-[#3a6b60]">Just precision AI and clarity.</span>
+        </p>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {steps.map((step) => (
+            <div
+              key={step.number}
+              className="bg-[#f0ece3] border border-[#d4d0c8] rounded-2xl p-7 flex flex-col gap-5"
+              style={{ borderTop: `2px solid ${step.borderColor}` }}
+            >
+              <div className="flex items-start justify-between">
+                <span
+                  className="text-[56px] font-bold leading-none"
+                  style={{ color: step.numberColor }}
+                >
+                  {step.number}
+                </span>
+                {step.icon}
+              </div>
+
+              <div>
+                <h3 className="text-[19px] font-bold text-[#1a1916] mb-2">{step.title}</h3>
+                <p className="text-[14px] text-[#6b6560] leading-relaxed">{step.description}</p>
+              </div>
+
+              <div className="mt-auto pt-5 border-t border-[#d4d0c8]">
+                <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-[#6b6560]">
+                  • {step.tag}
                 </span>
               </div>
-              <h3 className="text-lg font-bold mb-2">{title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                {body}
-              </p>
             </div>
           ))}
         </div>

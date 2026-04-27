@@ -1,86 +1,85 @@
-import { Shield, Target, FileText } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Sparkles, FileText, Shield, Zap, Search, Layout } from "lucide-react"
+
+const features = [
+  {
+    icon: <Sparkles className="w-6 h-6" />,
+    iconColor: "#3a6b60",
+    borderColor: "#3a6b60",
+    title: "AI Optimization",
+    description: "Intelligent rewriting that blends your real experience with targeted job requirements.",
+  },
+  {
+    icon: <FileText className="w-6 h-6" />,
+    iconColor: "#c97b4b",
+    borderColor: "#c97b4b",
+    title: "Harvard OCS Format",
+    description: "Industry-standard templates that ensure 100% compatibility with applicant tracking systems.",
+  },
+  {
+    icon: <Shield className="w-6 h-6" />,
+    iconColor: "#5c6b4a",
+    borderColor: "#5c6b4a",
+    title: "Private & Secure",
+    description: "Your resume data is encrypted and never sold. HIPAA-grade security standards.",
+  },
+  {
+    icon: <Zap className="w-6 h-6" />,
+    iconColor: "#c97b4b",
+    borderColor: "#c97b4b",
+    title: "Instant Export",
+    description: "High-fidelity PDF generation that preserves every font metric and layout perfectly.",
+  },
+  {
+    icon: <Search className="w-6 h-6" />,
+    iconColor: "#3a6b60",
+    borderColor: "#3a6b60",
+    title: "30 Second Upload",
+    description: "Quick and easy resume import — PDF, Word, or plain text. Any format accepted.",
+  },
+  {
+    icon: <Layout className="w-6 h-6" />,
+    iconColor: "#5c6b4a",
+    borderColor: "#5c6b4a",
+    title: "ATS Certified",
+    description: "Processed through our certified optimization pipeline for maximum parsing accuracy.",
+  },
+]
 
 export function FeaturesSection() {
   return (
-    <section className="py-24 bg-muted/30">
+    <section id="features" className="py-32 bg-[#e8e4dc]">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <p className="text-sm font-bold text-primary uppercase tracking-widest mb-3">
+        {/* Eyebrow */}
+        <div className="flex items-center justify-center gap-4 mb-6">
+          <div className="h-px w-10 bg-[#c97b4b]" />
+          <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-[#c97b4b]">
             Why VeriResume
-          </p>
-          <h2 className="text-4xl md:text-5xl font-black text-foreground mb-4">
-            Smarter. Faster. <span className="text-primary">Honest.</span>
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto font-medium">
-            Every feature is built around one principle: only say what&apos;s
-            true.
-          </p>
+          </span>
+          <div className="h-px w-10 bg-[#c97b4b]" />
         </div>
+
+        <h2 className="text-center text-[44px] md:text-[52px] font-bold tracking-tight text-[#1a1916] mb-4">
+          Built for your career.
+        </h2>
+        <p className="text-center text-[17px] text-[#6b6560] mb-16 max-w-xl mx-auto leading-relaxed">
+          Advanced AI insights —{" "}
+          <span className="text-[#3a6b60]">simple</span>,{" "}
+          <span className="text-[#c97b4b]">secure</span>, and accessible.
+        </p>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {[
-            {
-              icon: Shield,
-              title: "Honest Optimization",
-              description:
-                "We only surface skills and experience that actually exist in your resume. Zero fabrication, ever.",
-              tag: "Integrity-first",
-            },
-            {
-              icon: Target,
-              title: "ATS-Ready Output",
-              description:
-                "Our AI knows what Applicant Tracking Systems look for and writes to pass — truthfully.",
-              tag: "Beat the bots",
-            },
-            {
-              icon: FileText,
-              title: "Full Audit Trail",
-              description:
-                "See a side-by-side diff of every change. Know exactly what was rewritten and why.",
-              tag: "Transparent",
-            },
-          ].map(({ icon: Icon, title, description, tag }) => (
-            <Card
-              key={title}
-              className="border-none shadow-sm hover:shadow-md transition-shadow"
+          {features.map((feature) => (
+            <div
+              key={feature.title}
+              className="bg-[#f0ece3] border border-[#d4d0c8] rounded-2xl p-7 flex flex-col gap-5"
+              style={{ borderTop: `2px solid ${feature.borderColor}` }}
             >
-              <CardContent className="p-8">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
-                  <Icon className="w-6 h-6 text-primary" />
-                </div>
-                <Badge variant="secondary" className="mb-4">
-                  {tag}
-                </Badge>
-                <h3 className="text-xl font-bold mb-3">{title}</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-            { value: "2,000+", label: "Resumes optimized" },
-            { value: "3×", label: "More callbacks" },
-            { value: "<60s", label: "Avg. time" },
-            { value: "100%", label: "Truthful rewrites" },
-          ].map(({ value, label }) => (
-            <Card
-              key={label}
-              className="text-center p-6 border-none text-card-foreground bg-card shadow-sm"
-            >
-              <p className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary to-violet-600 mb-2">
-                {value}
-              </p>
-              <p className="text-sm text-muted-foreground font-medium">
-                {label}
-              </p>
-            </Card>
+              <div style={{ color: feature.iconColor }}>{feature.icon}</div>
+              <div>
+                <h3 className="text-[18px] font-bold text-[#1a1916] mb-2">{feature.title}</h3>
+                <p className="text-[14px] text-[#6b6560] leading-relaxed">{feature.description}</p>
+              </div>
+            </div>
           ))}
         </div>
       </div>
