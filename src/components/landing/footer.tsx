@@ -44,7 +44,7 @@ export function Footer({ tagline }: { tagline?: string }) {
               {tagline || "A new way to land your dream job — without spending hours rewriting your resume."}
             </p>
             <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-[#6b6560]">
-              · © {new Date().getFullYear()} VeriResume · All rights reserved
+              · © {new Date().getFullYear()} VeriResume by Devpayoub · All rights reserved
             </p>
           </div>
 
