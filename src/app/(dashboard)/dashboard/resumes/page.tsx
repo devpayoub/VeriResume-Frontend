@@ -7,7 +7,7 @@ import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Loader2, Trash2, FileText, Upload, Clock, Search, Activity } from "lucide-react"
+import { Loader2, Trash2, FileText, Upload, Clock, Search, Activity, FileCheck } from "lucide-react"
 import { HarvardResumeViewer } from "@/components/harvard-resume-viewer"
 import { ConfirmDialog } from "@/components/confirm-dialog"
 import type { Resume } from "@/types"
@@ -17,9 +17,8 @@ export default function ResumesPage() {
     const [resumes, setResumes] = React.useState<Resume[]>([])
     const [loading, setLoading] = React.useState(true)
     const [uploading, setUploading] = React.useState(false)
-    const [selectedResumeId, setSelectedResumeId] = React.useState<string | null>(
-        null
-    )
+    const [selectedResumeId, setSelectedResumeId] = React.useState<string | null>(null)
+    const [activeTab, setActiveTab] = React.useState<"list" | "preview">("list")
     const fileInputRef = React.useRef<HTMLInputElement>(null)
 
     const fetchResumes = React.useCallback(async () => {
@@ -97,11 +96,11 @@ export default function ResumesPage() {
     return (
         <div className="flex flex-col space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             {/* Header / Upload Zone */}
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-card/60 backdrop-blur-xl border border-primary/10 p-8 rounded-3xl shadow-sm relative overflow-hidden">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-card/60 backdrop-blur-xl border border-primary/10 p-6 sm:p-8 rounded-3xl shadow-sm relative overflow-hidden">
                 <div className="absolute -right-20 -top-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
                 <div className="relative z-10 text-center md:text-left w-full md:w-auto">
-                    <h1 className="text-3xl font-extrabold tracking-tight">My Resumes</h1>
+                    <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">My Resumes</h1>
                     <p className="text-muted-foreground mt-2 max-w-sm">
                         Manage your base resumes. Upload your latest CVs in PDF or Word format to be optimized against job descriptions.
                     </p>
@@ -117,7 +116,7 @@ export default function ResumesPage() {
                     />
                     <div
                         onClick={() => !uploading && fileInputRef.current?.click()}
-                        className={`flex flex-col items-center justify-center p-8 border-2 border-dashed rounded-2xl transition-all cursor-pointer bg-background/50 hover:bg-primary/5 hover:border-primary/50 group ${uploading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        className={`flex flex-col items-center justify-center p-6 sm:p-8 border-2 border-dashed rounded-2xl transition-all cursor-pointer bg-background/50 hover:bg-primary/5 hover:border-primary/50 group ${uploading ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
                         <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
                             {uploading ? (
@@ -132,9 +131,25 @@ export default function ResumesPage() {
                 </div>
             </div>
 
-            <div className="grid lg:grid-cols-12 gap-8">
+            {/* Mobile Tabs Toggle */}
+            <div className="flex lg:hidden bg-muted/50 p-1 rounded-xl border border-border/50">
+                <button
+                    onClick={() => setActiveTab("list")}
+                    className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${activeTab === "list" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground"}`}
+                >
+                    Library
+                </button>
+                <button
+                    onClick={() => setActiveTab("preview")}
+                    className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${activeTab === "preview" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground"}`}
+                >
+                    Preview
+                </button>
+            </div>
+
+            <div className="grid lg:grid-cols-[minmax(0,380px)_1fr] gap-8 items-start">
                 {/* List Pane */}
-                <div className="lg:col-span-4 flex flex-col h-[600px] bg-card/50 backdrop-blur-sm border rounded-3xl shadow-sm overflow-hidden">
+                <div className={`${activeTab === "list" ? "flex" : "hidden lg:flex"} flex-col h-[500px] lg:h-[750px] bg-card/50 backdrop-blur-sm border rounded-3xl shadow-sm overflow-hidden`}>
                     <div className="p-6 border-b bg-muted/20">
                         <h2 className="text-lg font-semibold flex items-center gap-2">
                             <FileText className="w-5 h-5 text-primary" />
@@ -160,7 +175,10 @@ export default function ResumesPage() {
                                     return (
                                         <div
                                             key={resume.id}
-                                            onClick={() => setSelectedResumeId(resume.id)}
+                                            onClick={() => {
+                                                setSelectedResumeId(resume.id)
+                                                setActiveTab("preview")
+                                            }}
                                             className={`p-4 rounded-2xl cursor-pointer transition-all duration-200 border ${isSelected
                                                 ? "bg-primary text-primary-foreground border-primary shadow-md shadow-primary/20 scale-[1.02]"
                                                 : "bg-background hover:bg-muted/80 border-transparent hover:border-border"
@@ -192,27 +210,25 @@ export default function ResumesPage() {
                 </div>
 
                 {/* Preview Pane */}
-                <div className="lg:col-span-8 h-[600px] flex flex-col">
+                <div className={`${activeTab === "preview" ? "flex" : "hidden lg:flex"} lg:sticky lg:top-6 min-w-0 h-[600px] lg:h-[850px] flex flex-col`}>
                     {selectedResume ? (
                         <div className="flex-1 flex flex-col h-full overflow-hidden space-y-4">
-                            <div className="flex items-center justify-between px-2 pt-1">
+                            <div className="flex items-center justify-between mb-4 px-1">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                                        <FileText className="w-4 h-4 text-primary" />
-                                    </div>
-                                    <h3 className="text-lg font-semibold text-foreground">
+                                    <FileCheck className="w-6 h-6 text-primary" />
+                                    <h2 className="text-xl font-bold text-foreground truncate max-w-[200px] sm:max-w-md">
                                         {selectedResume.filename}
-                                    </h3>
+                                    </h2>
                                 </div>
                                 <ConfirmDialog
                                     trigger={
                                         <Button
-                                            variant="destructive"
+                                            variant="ghost"
                                             size="sm"
-                                            className="rounded-lg shadow-none"
+                                            className="rounded-xl text-destructive hover:bg-destructive/10 hover:text-destructive"
                                         >
                                             <Trash2 className="w-4 h-4 mr-2" />
-                                            Delete Resume
+                                            <span className="hidden sm:inline">Delete</span>
                                         </Button>
                                     }
                                     title="Delete Resume"
@@ -222,7 +238,7 @@ export default function ResumesPage() {
                                     onConfirm={() => handleDelete(selectedResume.id)}
                                 />
                             </div>
-                            <div className="flex-1 overflow-hidden min-h-0 [&>div]:h-full border border-border/50 rounded-3xl">
+                            <div className="flex-1 overflow-hidden min-h-0 [&>div]:h-full">
                                 <HarvardResumeViewer content={selectedResume.parsed_text} />
                             </div>
                         </div>

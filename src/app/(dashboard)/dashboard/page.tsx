@@ -54,7 +54,7 @@ export default async function DashboardPage() {
     return (
         <div className="flex flex-col space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             {/* Header Area */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 bg-card/50 backdrop-blur-xl border p-6 rounded-2xl shadow-sm">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 bg-card/50 backdrop-blur-xl border p-5 sm:p-6 rounded-2xl shadow-sm">
                 <div>
                     <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
                         Welcome Back

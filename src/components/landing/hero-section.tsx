@@ -17,7 +17,7 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden">
+    <section className="relative min-h-screen flex items-center pt-24 sm:pt-28 pb-12 sm:pb-20 overflow-hidden">
       {/* Vertical grid background — exact CeruLabs style */}
       <div className="absolute inset-0 pointer-events-none z-0" aria-hidden>
         {[...Array(12)].map((_, i) => (
@@ -41,13 +41,13 @@ export function HeroSection() {
               </span>
             </div>
 
-            <h1 className="text-[64px] md:text-[76px] leading-[1.05] font-bold mb-6 tracking-tight">
+            <h1 className="text-[42px] sm:text-[60px] md:text-[76px] leading-[1.05] font-bold mb-6 tracking-tight">
               <span className="text-[#1a1916]">The smartest</span>
               <br />
               <span className="text-[#6b6560] font-bold">resume engine.</span>
             </h1>
 
-            <p className="text-[15px] text-[#6b6560] leading-relaxed mb-10 max-w-md">
+            <p className="text-[14px] sm:text-[15px] text-[#6b6560] leading-relaxed mb-8 sm:mb-10 max-w-md">
               AI-driven rewriting of{" "}
               <strong className="text-[#1a1916] font-semibold">99+ job keywords</strong>{" "}
               from a single job description. ATS-compliant results in{" "}
@@ -116,43 +116,34 @@ export function HeroSection() {
                 </div>
                 
                 {/* Optimized Document abstract */}
-                <div className="flex-[1.5] border border-[#c97b4b]/20 bg-white rounded-lg p-3.5 flex flex-col gap-3 relative shadow-sm">
-                   <div className="absolute top-3 right-3 flex items-center gap-1.5">
+                <div className="flex-[1.5] border border-[#c97b4b]/20 bg-white rounded-lg p-2.5 sm:p-3.5 flex flex-col gap-2.5 sm:gap-3 relative shadow-sm overflow-hidden">
+                   <div className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 flex items-center gap-1.5">
                       <div className="w-1.5 h-1.5 rounded-full bg-[#3a6b60] animate-pulse" />
                       <span className="text-[7px] font-bold tracking-widest text-[#3a6b60] uppercase">Optimized</span>
                    </div>
 
-                   <div className="w-1/3 h-2.5 bg-[#1a1916] rounded-sm" />
+                   <div className="w-1/3 h-2 sm:h-2.5 bg-[#1a1916] rounded-sm" />
                    
                    {/* paragraph with highlighted 'keywords' */}
-                   <div className="flex flex-wrap items-center gap-1.5 mt-1">
-                      <div className="w-12 h-1.5 bg-[#d4d0c8] rounded-sm" />
-                      <div className="px-1.5 py-0.5 bg-[#c97b4b]/10 text-[#c97b4b] text-[7px] font-bold rounded">TYPESCRIPT</div>
-                      <div className="w-16 h-1.5 bg-[#d4d0c8] rounded-sm" />
-                      <div className="w-8 h-1.5 bg-[#d4d0c8] rounded-sm" />
-                      <div className="px-1.5 py-0.5 bg-[#3a6b60]/10 text-[#3a6b60] text-[7px] font-bold rounded">REACT.JS</div>
-                      <div className="w-14 h-1.5 bg-[#d4d0c8] rounded-sm" />
+                   <div className="flex flex-wrap items-center gap-1 sm:gap-1.5 mt-0.5 sm:mt-1">
+                      <div className="w-10 sm:w-12 h-1 sm:h-1.5 bg-[#d4d0c8] rounded-sm" />
+                      <div className="px-1 py-0.5 sm:px-1.5 bg-[#c97b4b]/10 text-[#c97b4b] text-[6px] sm:text-[7px] font-bold rounded">TYPESCRIPT</div>
+                      <div className="w-12 sm:w-16 h-1 sm:h-1.5 bg-[#d4d0c8] rounded-sm" />
+                      <div className="px-1 py-0.5 sm:px-1.5 bg-[#3a6b60]/10 text-[#3a6b60] text-[6px] sm:text-[7px] font-bold rounded">REACT.JS</div>
                    </div>
                    
-                   <div className="flex flex-wrap items-center gap-1.5">
-                      <div className="px-1.5 py-0.5 bg-[#5c6b4a]/10 text-[#5c6b4a] text-[7px] font-bold rounded">SYSTEM ARCHITECTURE</div>
-                      <div className="w-10 h-1.5 bg-[#d4d0c8] rounded-sm" />
-                      <div className="w-14 h-1.5 bg-[#d4d0c8] rounded-sm" />
-                      <div className="w-8 h-1.5 bg-[#d4d0c8] rounded-sm" />
+                   <div className="flex flex-wrap items-center gap-1 sm:gap-1.5">
+                      <div className="px-1 py-0.5 sm:px-1.5 bg-[#5c6b4a]/10 text-[#5c6b4a] text-[6px] sm:text-[7px] font-bold rounded">SYSTEM ARCHITECTURE</div>
+                      <div className="w-8 sm:w-10 h-1 sm:h-1.5 bg-[#d4d0c8] rounded-sm" />
                    </div>
                    
-                   <div className="w-full h-[1px] bg-[#d4d0c8]/50 my-1" />
+                   <div className="w-full h-[1px] bg-[#d4d0c8]/50 my-0.5 sm:my-1" />
                    
-                   <div className="w-2/5 h-2.5 bg-[#1a1916] rounded-sm" />
-                   <div className="flex flex-wrap items-center gap-1.5 mt-1">
-                      <div className="w-14 h-1.5 bg-[#d4d0c8] rounded-sm" />
-                      <div className="px-1.5 py-0.5 bg-[#c97b4b]/10 text-[#c97b4b] text-[7px] font-bold rounded">NODE.JS</div>
-                      <div className="w-10 h-1.5 bg-[#d4d0c8] rounded-sm" />
-                      <div className="px-1.5 py-0.5 bg-[#3a6b60]/10 text-[#3a6b60] text-[7px] font-bold rounded">AWS</div>
-                   </div>
-                   <div className="flex flex-wrap items-center gap-1.5">
-                      <div className="w-20 h-1.5 bg-[#d4d0c8] rounded-sm" />
-                      <div className="px-1.5 py-0.5 bg-[#5c6b4a]/10 text-[#5c6b4a] text-[7px] font-bold rounded">GRAPHQL</div>
+                   <div className="w-2/5 h-2 sm:h-2.5 bg-[#1a1916] rounded-sm" />
+                   <div className="flex flex-wrap items-center gap-1 sm:gap-1.5 mt-0.5 sm:mt-1">
+                      <div className="w-10 sm:w-14 h-1 sm:h-1.5 bg-[#d4d0c8] rounded-sm" />
+                      <div className="px-1 py-0.5 sm:px-1.5 bg-[#c97b4b]/10 text-[#c97b4b] text-[6px] sm:text-[7px] font-bold rounded">NODE.JS</div>
+                      <div className="px-1 py-0.5 sm:px-1.5 bg-[#3a6b60]/10 text-[#3a6b60] text-[6px] sm:text-[7px] font-bold rounded">AWS</div>
                    </div>
                 </div>
               </div>
@@ -161,12 +152,12 @@ export function HeroSection() {
               <div className="grid grid-cols-3 divide-x divide-[#d4d0c8] border-t border-[#d4d0c8]">
                 {[
                   { value: "99", label: "KEYWORDS" },
-                  { value: "2:14", label: "PROCESSING" },
-                  { value: "03", label: "SECTIONS MATCHED" },
+                  { value: "2:14", label: "PROCESS" },
+                  { value: "03", label: "MATCHED" },
                 ].map((stat) => (
-                  <div key={stat.label} className="px-5 py-4">
-                    <div className="text-[22px] font-bold text-[#1a1916]">{stat.value}</div>
-                    <div className="text-[9px] font-bold tracking-[0.14em] uppercase text-[#6b6560]">{stat.label}</div>
+                  <div key={stat.label} className="px-3 sm:px-5 py-3 sm:py-4">
+                    <div className="text-[18px] sm:text-[22px] font-bold text-[#1a1916]">{stat.value}</div>
+                    <div className="text-[8px] sm:text-[9px] font-bold tracking-[0.14em] uppercase text-[#6b6560]">{stat.label}</div>
                   </div>
                 ))}
               </div>

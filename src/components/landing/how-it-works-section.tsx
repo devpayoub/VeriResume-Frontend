@@ -35,7 +35,7 @@ const steps = [
 
 export function HowItWorksSection() {
   return (
-    <section id="how-it-works" className="py-32">
+    <section id="how-it-works" className="py-20 sm:py-32">
       <div className="max-w-6xl mx-auto px-6">
         {/* Eyebrow */}
         <div className="flex items-center justify-center gap-4 mb-6">
@@ -46,15 +46,15 @@ export function HowItWorksSection() {
           <div className="h-px w-10 bg-[#c97b4b]" />
         </div>
 
-        <h2 className="text-center text-[44px] md:text-[52px] font-bold tracking-tight text-[#1a1916] mb-4">
+        <h2 className="text-center text-[32px] sm:text-[44px] md:text-[52px] font-bold tracking-tight text-[#1a1916] mb-4">
           Three steps from draft to dream job.
         </h2>
-        <p className="text-center text-[17px] text-[#6b6560] mb-16 max-w-xl mx-auto leading-relaxed">
+        <p className="text-center text-[15px] sm:text-[17px] text-[#6b6560] mb-12 sm:mb-16 max-w-xl mx-auto leading-relaxed">
           No recruiters, no guesswork, no waiting.{" "}
           <span className="text-[#3a6b60]">Just precision AI and clarity.</span>
         </p>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {steps.map((step) => (
             <div
               key={step.number}
@@ -63,7 +63,7 @@ export function HowItWorksSection() {
             >
               <div className="flex items-start justify-between">
                 <span
-                  className="text-[56px] font-bold leading-none"
+                  className="text-[48px] sm:text-[56px] font-bold leading-none"
                   style={{ color: step.numberColor }}
                 >
                   {step.number}
@@ -72,7 +72,7 @@ export function HowItWorksSection() {
               </div>
 
               <div>
-                <h3 className="text-[19px] font-bold text-[#1a1916] mb-2">{step.title}</h3>
+                <h3 className="text-[18px] sm:text-[19px] font-bold text-[#1a1916] mb-2">{step.title}</h3>
                 <p className="text-[14px] text-[#6b6560] leading-relaxed">{step.description}</p>
               </div>
 

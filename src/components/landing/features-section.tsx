@@ -47,7 +47,7 @@ const features = [
 
 export function FeaturesSection() {
   return (
-    <section id="features" className="py-32 bg-[#e8e4dc]">
+    <section id="features" className="py-20 sm:py-32 bg-[#e8e4dc]">
       <div className="max-w-6xl mx-auto px-6">
         {/* Eyebrow */}
         <div className="flex items-center justify-center gap-4 mb-6">
@@ -58,16 +58,16 @@ export function FeaturesSection() {
           <div className="h-px w-10 bg-[#c97b4b]" />
         </div>
 
-        <h2 className="text-center text-[44px] md:text-[52px] font-bold tracking-tight text-[#1a1916] mb-4">
+        <h2 className="text-center text-[32px] sm:text-[44px] md:text-[52px] font-bold tracking-tight text-[#1a1916] mb-4">
           Built for your career.
         </h2>
-        <p className="text-center text-[17px] text-[#6b6560] mb-16 max-w-xl mx-auto leading-relaxed">
+        <p className="text-center text-[15px] sm:text-[17px] text-[#6b6560] mb-12 sm:mb-16 max-w-xl mx-auto leading-relaxed">
           Advanced AI insights —{" "}
           <span className="text-[#3a6b60]">simple</span>,{" "}
           <span className="text-[#c97b4b]">secure</span>, and accessible.
         </p>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature) => (
             <div
               key={feature.title}

@@ -51,7 +51,7 @@ const faqs = [
 
 export function FaqSection() {
   return (
-    <section id="faq" className="py-32 bg-[#e8e4dc]">
+    <section id="faq" className="py-20 sm:py-32 bg-[#e8e4dc]">
       <div className="max-w-3xl mx-auto px-6">
         {/* Eyebrow */}
         <div className="flex items-center justify-center gap-4 mb-6">
@@ -62,10 +62,10 @@ export function FaqSection() {
           <div className="h-px w-10 bg-[#c97b4b]" />
         </div>
 
-        <h2 className="text-center text-[44px] md:text-[52px] font-bold tracking-tight text-[#1a1916] mb-4">
+        <h2 className="text-center text-[32px] sm:text-[44px] md:text-[52px] font-bold tracking-tight text-[#1a1916] mb-4">
           Everything you might wonder.
         </h2>
-        <p className="text-center text-[17px] text-[#6b6560] mb-16 leading-relaxed">
+        <p className="text-center text-[15px] sm:text-[17px] text-[#6b6560] mb-12 sm:mb-16 leading-relaxed">
           Real answers about the AI, the privacy, and the process.
         </p>
 

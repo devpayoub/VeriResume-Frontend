@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Download, Loader2, Lightbulb } from "lucide-react"
@@ -232,7 +232,39 @@ function paginateBlocks(blocks: Block[]): Block[][] {
 // ── Main export ────────────────────────────────────────────────────────────
 export function HarvardResumeViewer({ content }: HarvardResumeViewerProps) {
     const pageRefs = useRef<(HTMLDivElement | null)[]>([])
+    const containerRef = useRef<HTMLDivElement>(null)
     const [downloading, setDownloading] = useState(false)
+    const [scale, setScale] = useState(1)
+
+    useEffect(() => {
+        const updateScale = () => {
+            if (!containerRef.current) return
+            const containerWidth = containerRef.current.clientWidth
+            const a4WidthPx = 794 // 210mm at 96 DPI
+            const padding = 32 // sm:px-6 equivalent or safe margin
+            
+            if (containerWidth < a4WidthPx) {
+                const newScale = (containerWidth) / a4WidthPx
+                setScale(Math.max(0.35, newScale)) // Don't scale below 0.35
+            } else {
+                setScale(1)
+            }
+        }
+
+        const resizeObserver = new ResizeObserver(() => {
+            updateScale()
+        })
+
+        if (containerRef.current) {
+            resizeObserver.observe(containerRef.current)
+        }
+
+        updateScale()
+
+        return () => {
+            resizeObserver.disconnect()
+        }
+    }, [])
 
     const blocks = content ? parseResume(content) : []
     const pages = paginateBlocks(blocks)
@@ -291,7 +323,7 @@ export function HarvardResumeViewer({ content }: HarvardResumeViewerProps) {
                         <div className="w-3 h-3 rounded-full bg-amber-400" />
                         <div className="w-3 h-3 rounded-full bg-emerald-400" />
                     </div>
-                    <span className="text-sm font-medium text-muted-foreground">Harvard OCS Resume</span>
+                    <span className="text-sm font-medium text-muted-foreground hidden xs:inline">Harvard OCS Resume</span>
                 </div>
                 <Button
                     onClick={handleDownloadPdf}
@@ -305,30 +337,43 @@ export function HarvardResumeViewer({ content }: HarvardResumeViewerProps) {
             </div>
 
             {/* ── Paper canvas ── */}
-            <div className="bg-neutral-200 dark:bg-neutral-800 w-full overflow-y-auto flex flex-col items-center gap-8 py-10" style={{ maxHeight: "860px" }}>
-                {pages.map((pageBlocks, pageIdx) => (
-                    <div
-                        key={pageIdx}
-                        ref={(el) => {
-                            pageRefs.current[pageIdx] = el
-                        }}
-                        className="bg-white shadow-xl flex-shrink-0"
-                        style={{
-                            width: "210mm",
-                            minHeight: "297mm",
-                            height: "max-content",
-                            padding: "18mm 20mm",
-                            boxSizing: "border-box",
-                        }}
-                    >
-                        {content
-                            ? <ResumeContent blocks={pageBlocks} />
-                            : <div style={{ textAlign: "center", color: "#aaa", paddingTop: "80px", fontSize: "13pt", fontFamily: "'Times New Roman', serif" }}>
-                                No resume content to display yet.
-                            </div>
-                        }
-                    </div>
-                ))}
+            <div 
+                ref={containerRef}
+                className="bg-neutral-200 dark:bg-neutral-800 w-full overflow-y-auto overflow-x-hidden flex flex-col items-center gap-4 py-4 sm:py-10 flex-1" 
+            >
+                <div 
+                    className="flex flex-col items-center gap-4 sm:gap-8 transition-transform duration-200 ease-out"
+                    style={{ 
+                        transform: `scale(${scale})`,
+                        transformOrigin: "top center",
+                        height: scale < 1 ? `calc(${297 * pages.length}mm * ${scale})` : "auto",
+                        marginBottom: scale < 1 ? "2rem" : "0"
+                    }}
+                >
+                    {pages.map((pageBlocks, pageIdx) => (
+                        <div
+                            key={pageIdx}
+                            ref={(el) => {
+                                pageRefs.current[pageIdx] = el
+                            }}
+                            className="bg-white shadow-xl flex-shrink-0"
+                            style={{
+                                width: "210mm",
+                                minHeight: "297mm",
+                                height: "max-content",
+                                padding: "18mm 20mm",
+                                boxSizing: "border-box",
+                            }}
+                        >
+                            {content
+                                ? <ResumeContent blocks={pageBlocks} />
+                                : <div style={{ textAlign: "center", color: "#aaa", paddingTop: "80px", fontSize: "13pt", fontFamily: "'Times New Roman', serif" }}>
+                                    No resume content to display yet.
+                                </div>
+                            }
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     )

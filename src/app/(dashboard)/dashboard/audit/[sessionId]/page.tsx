@@ -145,7 +145,7 @@ export default async function AuditPage(props: {
                     </CardContent>
                 </Card>
             ) : (
-                <div className="grid xl:grid-cols-[1fr_minmax(0,1050px)] gap-10 items-start">
+                <div className="grid lg:grid-cols-[1fr_minmax(0,450px)] xl:grid-cols-[1fr_minmax(0,1050px)] gap-8 xl:gap-10 items-start">
                     <div>
                         <div className="flex items-center justify-between mb-4">
                             <h2 className="text-xl font-bold flex items-center gap-2">
@@ -168,7 +168,7 @@ export default async function AuditPage(props: {
                                 {auditTrails.map((entry, index) => (
                                     <div key={entry.id} className="group relative">
                                         <div className="absolute -left-3 top-6 bottom-6 w-0.5 bg-border group-hover:bg-primary/30 transition-colors rounded-full" />
-                                        <Card className="rounded-2xl overflow-hidden border-border/50 shadow-sm transition-all hover:shadow-md hover:border-primary/20">
+                                        <Card className="rounded-2xl overflow-hidden border-border/50 shadow-sm transition-all hover:shadow-md hover:border-primary/20 bg-card/40">
 
                                             {/* Top Bar with Badges */}
                                             <div className="bg-muted/30 px-5 py-3 border-b border-border/50 flex flex-wrap items-center justify-between gap-4 text-sm">
@@ -235,7 +235,7 @@ export default async function AuditPage(props: {
                         )}
                     </div>
 
-                    <div className="xl:sticky xl:top-6 min-w-0">
+                    <div className="lg:sticky lg:top-6 min-w-0 h-[600px] lg:h-[800px] flex flex-col">
                         <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
                             <FileCheck className="w-6 h-6 text-primary" /> Final ATS-Optimized Resume
                         </h2>

@@ -112,12 +112,12 @@ export default function NewOptimizationPage() {
     return (
         <div className="flex flex-col space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             {/* Header Area */}
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-card/60 backdrop-blur-xl border border-primary/10 p-8 rounded-3xl shadow-sm relative overflow-hidden">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-card/60 backdrop-blur-xl border border-primary/10 p-6 sm:p-8 rounded-3xl shadow-sm relative overflow-hidden">
                 <div className="absolute -right-20 -top-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
                 <div className="relative z-10 text-center md:text-left w-full md:w-auto">
-                    <h1 className="text-3xl font-extrabold tracking-tight">New Optimization</h1>
-                    <p className="text-muted-foreground mt-2 max-w-lg">
+                    <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">New Optimization</h1>
+                    <p className="text-sm text-muted-foreground mt-2 max-w-lg">
                         Tailor your resume for a specific job application. We map your experiences directly against ATS requirements without hallucinations.
                     </p>
                 </div>
@@ -224,7 +224,7 @@ export default function NewOptimizationPage() {
                                     <Wand2 className="w-5 h-5 text-primary" /> Step 3: Preferences
                                 </h2>
 
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-3">
                                     <button
                                         type="button"
                                         onClick={() => setOptAddProjects(!optAddProjects)}

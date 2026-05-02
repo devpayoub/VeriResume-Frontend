@@ -51,7 +51,7 @@ const plans = [
 
 export function PlansSection() {
   return (
-    <section id="plans" className="py-32">
+    <section id="plans" className="py-20 sm:py-32">
       <div className="max-w-6xl mx-auto px-6">
         {/* Eyebrow */}
         <div className="flex items-center justify-center gap-4 mb-6">
@@ -62,18 +62,18 @@ export function PlansSection() {
           <div className="h-px w-10 bg-[#c97b4b]" />
         </div>
 
-        <h2 className="text-center text-[44px] md:text-[56px] font-bold tracking-tight text-[#1a1916] mb-4">
+        <h2 className="text-center text-[32px] sm:text-[44px] md:text-[56px] font-bold tracking-tight text-[#1a1916] mb-4">
           Built for two goals.
         </h2>
-        <p className="text-center text-[17px] text-[#6b6560] mb-16 max-w-lg mx-auto leading-relaxed">
+        <p className="text-center text-[15px] sm:text-[17px] text-[#6b6560] mb-12 sm:mb-16 max-w-lg mx-auto leading-relaxed">
           One AI engine, two career applications. Reserve your spot before public launch.
         </p>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
           {plans.map((plan) => (
             <div
               key={plan.title}
-              className="bg-[#f0ece3] border border-[#d4d0c8] rounded-2xl p-8 flex flex-col gap-6"
+              className="bg-[#f0ece3] border border-[#d4d0c8] rounded-2xl p-6 sm:p-8 flex flex-col gap-6"
               style={{ borderTop: `2px solid ${plan.borderColor}` }}
             >
               {/* Header */}
@@ -96,7 +96,7 @@ export function PlansSection() {
 
               {/* Title + description */}
               <div>
-                <h3 className="text-[28px] font-bold text-[#1a1916] mb-2">{plan.title}</h3>
+                <h3 className="text-[24px] sm:text-[28px] font-bold text-[#1a1916] mb-2">{plan.title}</h3>
                 <p className="text-[14px] text-[#6b6560] leading-relaxed">{plan.description}</p>
               </div>
 
